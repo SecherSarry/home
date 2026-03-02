@@ -72,22 +72,22 @@
 						<div class="card">
 							<h5 class="card-header">网站信息</h5>
 							<div class="card-body">
-								<p class="card-text">本站于2023年7月18日建立，基于Bootstarp5，为圣灵的个人主页</p>
+								<p class="card-text">
+									本站于2023年7月18日建立，采用BootStrap5。
+									请积极关注本网站，网站正在持续建设中。
+								</p>
 								<a href="pointer.html" class="btn btn-primary">随便逛逛</a>
 							</div>
 						</div>
 						<br>
-						<div class="alert alert-success alert-dismissible fade show" role="alert">
-							<h5>
-								免费ChatGPT（由
-								<a href="https://trf2476.tk/">trf2476</a>
-								友情提供）
-							</h5>
-							<a href="https://trf2476.tk/gpt/" class="btn btn-primary">即刻体验</a>
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						<div class="card">
+							<h5 class="card-header">最近在玩</h5>
+							<div class="card-body">
+								<a href="https://angrystar6k.github.io/The-Mining-Incremental-Table/" class="btn btn-warning" target="_blank">挖矿增量页</a>
+								<a href="https://game.hullqin.cn/" class="btn btn-success" target="_blank">HullQin桌游合集</a>
+								<a href="https://game.ur1.fun/adarkroom/" class="btn btn-danger" target="_blank">小黑屋</a>
+							</div>
 						</div>
-					</div>
-					<div class="col-md-6 column">
 						<br>
 						<div class="card">
 							<div class="card-body text-end">
@@ -95,6 +95,28 @@
 									<p>给岁月以文明，而不是给文明以岁月</p>
 									<footer class="blockquote-footer">刘慈欣<cite title="Source Title">《三体：黑暗森林》</cite></footer>
 								</blockquote>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-md-6 column">
+						<br>
+						<div class="card">
+							<h5 class="card-header">留言板（测试中）</h5>
+							<div class="card-body">
+								<form id="messageForm">
+									<div class="mb-3">
+										<label for="name" class="form-label">姓名</label>
+										<input type="text" class="form-control" id="name" required>
+									</div>
+									<div class="mb-3">
+										<label for="message" class="form-label">留言内容</label>
+										<textarea class="form-control" id="message" rows="3" required></textarea>
+									</div>
+									<button type="submit" class="btn btn-primary">提交留言</button>
+								</form>
+								<div id="messagesList" class="mt-4"></div>
 							</div>
 						</div>
 						<br>
@@ -114,4 +136,49 @@
 		</div>
 	</div>
 	<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+	<script>
+		// 留言板功能
+		document.getElementById('messageForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			const name = document.getElementById('name').value;
+			const message = document.getElementById('message').value;
+			const timestamp = new Date().toLocaleString();
+			
+			// 获取现有留言
+			let messages = JSON.parse(localStorage.getItem('messages')) || [];
+			// 添加新留言
+			messages.push({name, message, timestamp});
+			// 保存到localStorage
+			localStorage.setItem('messages', JSON.stringify(messages));
+			// 清空表单
+			document.getElementById('name').value = '';
+			document.getElementById('message').value = '';
+			// 更新留言列表
+			updateMessagesList();
+		});
+		
+		function updateMessagesList() {
+			const messagesList = document.getElementById('messagesList');
+			let messages = JSON.parse(localStorage.getItem('messages')) || [];
+			
+			if (messages.length === 0) {
+				messagesList.innerHTML = '<p class="text-muted">暂无留言，快来发表第一条留言吧！</p>';
+				return;
+			}
+			
+			messagesList.innerHTML = messages.map(msg => `
+				<div class="border rounded p-3 mb-2">
+					<h6>${msg.name}</h6>
+					<p>${msg.message}</p>
+					<small class="text-muted">${msg.timestamp}</small>
+				</div>
+			`).join('');
+		}
+		
+		// 页面加载时更新留言列表
+		document.addEventListener('DOMContentLoaded', function() {
+			updateMessagesList();
+		});
+		
+	</script>
 </body>
