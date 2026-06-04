@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>瑞克和莫蒂 · 多元宇宙人格测试</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background: #0b1a2e;
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', system-ui, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #e4f1f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .start-screen {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        .start-btn {
+            background: #3ecf8e;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 60px;
+            color: #021e1a;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #1b6b4a;
+        }
+        .start-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #1b6b4a;
+        }
+        .container {
+            width: 900px;
+            margin: 0 auto;
+            background: rgba(8, 28, 36, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
+            border: 1px solid #3ecf8e40;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 0.2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #b3ffcf, #7bcb8f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .sub {
+            text-align: center;
+            color: #aad6d1;
+            border-bottom: 1px dashed #3ecf8e60;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .intro {
+            background: #0d2c2c;
+            padding: 1rem 1.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            border-left: 5px solid #6ed4b0;
+        }
+        .question-card {
+            background: #102b2bcc;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.3rem;
+            transition: all 0.2s;
+            border: 1px solid #2c5e5e;
+        }
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+        }
+        .q-num {
+            background: #2cae7a;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #011;
+        }
+        .dimension-badge {
+            background: #1e4f6e;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+        .opt {
+            flex: 1;
+            min-width: 70px;
+            text-align: center;
+            background: #1a403f;
+            border-radius: 2rem;
+            padding: 0.5rem 0.2rem;
+            cursor: pointer;
+            transition: 0.1s;
+            border: 1px solid #479c8c;
+            font-size: 0.8rem;
+        }
+        .opt.selected {
+            background: #3acb96;
+            color: #021c1a;
+            font-weight: bold;
+            border-color: #c1ffcf;
+            box-shadow: 0 0 8px #4effb5;
+        }
+        .opt:hover:not(.selected) {
+            background: #2f6b60;
+        }
+        button {
+            background: #3ecf8e;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            color: #021e1a;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #1b6b4a;
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #1b6b4a;
+        }
+        .result-area {
+            margin-top: 2rem;
+            background: #031e1ecc;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            border: 1px solid #6ed4b0;
+        }
+        .best-match {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(135deg, #f9f3c1, #c8ffb0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .score-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 1rem 0;
+        }
+        .score-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .score-card {
+            background: #0b2727;
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            min-width: 180px;
+        }
+        .score-label {
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+        }
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.6rem;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #3ecf8e, #2db87a);
+        }
+        .score-value {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .rank-list {
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            background: #052020;
+            border-radius: 1rem;
+            padding: 0.5rem;
+            margin-top: 1rem;
+        }
+        .rank-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 12px;
+            border-bottom: 1px solid #2f6355;
+        }
+        hr {
+            border-color: #3f8a7a;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 2rem;
+            color: #7ba396;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 1.2rem; }
+            .opt { font-size: 0.7rem; min-width: 55px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 开始界面 -->
+    <div id="startScreen" class="start-screen">
+        <h1>RMTI · 多元宇宙人格切片</h1>
+        <div class="sub">「你更像哪一个瑞克和莫蒂角色？」</div>
+        <div class="intro" id="introText">
+            一共<span id="questionCount">15</span>道情境题，每题请选择最接近你内心的选项。<br>
+            1=完全不符合、5=非常符合。<br>
+            每道题都来自C-137宇宙的真实情境。诚实回答，诊断仪会扫描你的量子频率，找出最契合的角色。
+        </div>
+        <button type="button" class="start-btn" id="startBtn">开始测试</button>
+    </div>
+
+    <!-- 测试表单 -->
+    <form id="quizForm" style="display: none;">
+        <!-- 进度条 -->
+        <div style="margin-bottom: 1.5rem;">
+            <div id="progressText" style="text-align: center; margin-bottom: 8px; font-size: 0.9rem; color: #aad6d1;">1 / 15</div>
+            <div style="height: 8px; background: #0d2c2c; border-radius: 10px; overflow: hidden;">
+                <div id="progressBar" style="height: 100%; background: linear-gradient(90deg, #3ecf8e, #6ed4b0); width: 6.67%; transition: width 0.3s ease;"></div>
+            </div>
+        </div>
+        
+        <div id="questionsContainer"></div>
+        
+        <!-- 导航按钮 -->
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button type="button" id="prevBtn" style="display: none;">上一题</button>
+            <button type="button" id="nextBtn">下一题</button>
+            <button type="button" id="submitBtn" style="display: none;">扫描我的宇宙频率</button>
+        </div>
+    </form>
+
+    <div id="resultArea" class="result-area" style="display: none;">
+        <h1>RMTI · 多元宇宙人格切片</h1>
+        <div style="font-size: 1.4rem; text-align: center;">分析结果</div>
+        <div id="bestMatchText" class="best-match"></div>
+        <div id="scoresDisplay" class="score-grid"></div>
+        <footer>「在无限平行宇宙中，每一个选择都会分裂出另一个你」</footer>
+    </div>
+    <footer style="display: none;">「在无限平行宇宙中，每一个选择都会分裂出另一个你」</footer>
+</div>
+
+<script>
+    // ---------------- 定义16个角色 (名字 + [风险, 权力, 动力, 依附]) ----------------
+    // 参考《瑞克和莫蒂》经典人设，精心设计的坐标 (1-10)
+    const CHARACTERS = [
+        { name: "瑞克",          scores: [9, 1, 8, 4] },     // 瑞克
+        { name: "莫蒂",          scores: [3, 7, 2, 8] },     // 莫蒂
+        { name: "原初瑞克",      scores: [5, 8, 10, 1] },    // 原初瑞克
+        { name: "邪恶莫蒂",      scores: [2, 1, 10, 1] },    // 邪恶莫蒂
+        { name: "杰瑞",          scores: [1, 10, 4, 9] },    // 杰瑞
+        { name: "宇宙贝斯",      scores: [10, 3, 6, 2] },    // 宇宙贝斯
+        { name: "使命必达",      scores: [5, 1, 10, 10] }    // 使命必达
+    ];
+
+    // ----- 15道测试题，每道题归属于一个维度 (risk, power, drive, attach) 采用李克特5档
+    const QUESTIONS = [
+        { text: "瑞克递给你一瓶绿色药剂说“喝下去，70%几率获得超能力，30%变成黄瓜”，你会毫不犹豫喝掉。", dim: "risk" },
+        { text: "在群体中，我喜欢拥有最终决定权，并且享受指挥别人的感觉。", dim: "power" },
+        { text: "我常常主动追求目标，不需要外界推动，内心   有源源不绝的行动力。", dim: "drive" },
+        { text: "我非常在意亲密关系和周围人的看法，害怕被抛弃或冷落。", dim: "attach" },
+        { text: "面对未知结果时，我更倾向赌一把大的，而不是稳妥但平庸的方案。", dim: "risk" },
+        { text: "如果能获得更高的地位/资源，我愿意为此承担较高代价。", dim: "power" },
+        { text: "我做事很容易拖延或缺乏热情，经常需要外部压力才能行动。", dim: "drive", reverse: true },   // 反向计分
+        { text: "我总是把家人/密友的需求放在第一位，甚至牺牲自己的利益。", dim: "attach" },
+        { text: "我喜欢解决高难度问题，即使伴随危险和不确定也没关系。", dim: "risk" },
+        { text: "权力和影响力对我而言没有太大吸引力，我更愿意专注自己的事。", dim: "power", reverse: true },
+        { text: "我属于“自我驱动型”——不需要别人激励，就能不懈努力。", dim: "drive" },
+        { text: "情感上独立，我不太需要他人认可也能感到安心。", dim: "attach", reverse: true },
+        { text: "比起遵守规则，我更愿意打破规则去争取我想要的。", dim: "risk" },
+        { text: "我喜欢在团队中承担领导角色，并希望决策能被遵循。", dim: "power" },
+        { text: "我常常感觉到一种内在使命感，推动我去做很多事。", dim: "drive" }
+    ];
+
+    // 维度映射及每道题的原始得分范围 1~5
+    // 我们将在提交时计算每个维度的平均得分（处理反向题）, 然后线性映射到 1~10 区间
+
+    // Fisher-Yates 洗牌算法 - 随机打乱数组
+    function shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+    
+    // 随机打乱题目顺序
+    const SHUFFLED_QUESTIONS = shuffleArray(QUESTIONS);
+    
+    // 记录每道题的答案 (1-5)
+    let answers = new Array(SHUFFLED_QUESTIONS.length).fill(null);
+    let currentPage = 0;
+
+    // 渲染当前题目
+    function renderCurrentQuestion() {
+        const container = document.getElementById('questionsContainer');
+        container.innerHTML = '';
+        
+        const q = SHUFFLED_QUESTIONS[currentPage];
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        
+        let questionHtml = `
+            <div class="question-text">
+                <span class="q-num">${currentPage+1}</span>
+                <span>${q.text}</span>
+            </div>
+            <div class="options" data-qidx="${currentPage}" data-dim="${q.dim}" data-reverse="${q.reverse || false}">
+        `;
+        for (let val = 1; val <= 5; val++) {
+            let label = '';
+            if (val === 1) label = '非常不符';
+            else if (val === 2) label = '不太符合';
+            else if (val === 3) label = '中立';
+            else if (val === 4) label = '比较符合';
+            else label = '非常符合';
+            const selectedClass = (answers[currentPage] === val) ? 'selected' : '';
+            questionHtml += `<div class="opt ${selectedClass}" data-val="${val}">${label}<br><span style="font-size:0.7rem;">${val}</span></div>`;
+        }
+        questionHtml += `</div>`;
+        card.innerHTML = questionHtml;
+        container.appendChild(card);
+
+        // 更新进度条
+        updateProgressBar();
+
+        // 绑定选项点击事件
+        const optDiv = document.querySelector('.options');
+        const opts = optDiv.querySelectorAll('.opt');
+        opts.forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                const val = parseInt(opt.dataset.val);
+                answers[currentPage] = val;
+                opts.forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                
+                // 自动跳转到下一题（最后一题除外）
+                if (currentPage < SHUFFLED_QUESTIONS.length - 1) {
+                    setTimeout(() => {
+                        nextQuestion();
+                        updateNavButtons();
+                    }, 100);
+                }
+            });
+        });
+    }
+
+    // 更新进度条
+    function updateProgressBar() {
+        const progress = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        if (progress) {
+            progress.style.width = `${((currentPage + 1) / SHUFFLED_QUESTIONS.length) * 100}%`;
+            progressText.textContent = `${currentPage + 1} / ${SHUFFLED_QUESTIONS.length}`;
+        }
+    }
+
+    // 下一题
+    function nextQuestion() {
+        if (currentPage < SHUFFLED_QUESTIONS.length - 1) {
+            currentPage++;
+            renderCurrentQuestion();
+        }
+    }
+
+    // 上一题
+    function prevQuestion() {
+        if (currentPage > 0) {
+            currentPage--;
+            renderCurrentQuestion();
+        }
+    }
+
+    // 更新导航按钮状态
+    function updateNavButtons() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        prevBtn.style.display = currentPage === 0 ? 'none' : 'block';
+        nextBtn.style.display = currentPage === SHUFFLED_QUESTIONS.length - 1 ? 'none' : 'block';
+        submitBtn.style.display = currentPage === SHUFFLED_QUESTIONS.length - 1 ? 'block' : 'none';
+    }
+
+    // 计算用户四维得分 (映射到1-10)
+    function computeDimensionScores() {
+        // 初始化累加器
+        let dimSums = { risk: 0, power: 0, drive: 0, attach: 0 };
+        let dimCounts = { risk: 0, power: 0, drive: 0, attach: 0 };
+
+        for (let i = 0; i < SHUFFLED_QUESTIONS.length; i++) {
+            const q = SHUFFLED_QUESTIONS[i];
+            let ans = answers[i];
+            if (ans === null) return null;  // 未完成全部题目
+            const dim = q.dim;
+            let score = ans;
+            if (q.reverse === true) {
+                score = 6 - ans;   // 反向: 1->5, 2->4, 3->3, 4->2, 5->1
+            }
+            dimSums[dim] += score;
+            dimCounts[dim] += 1;
+        }
+
+        // 计算每个维度的原始平均分 (范围 1-5)
+        let rawAvg = {};
+        for (let d of ['risk', 'power', 'drive', 'attach']) {
+            rawAvg[d] = dimSums[d] / dimCounts[d];
+        }
+        // 线性映射 1~5 → 1~10
+        let mapped = {};
+        for (let d of ['risk', 'power', 'drive', 'attach']) {
+            mapped[d] = 1 + (rawAvg[d] - 1) * (9 / 4);
+            mapped[d] = Math.min(10, Math.max(1, mapped[d])); // 限制边界
+        }
+        return {
+            risk: parseFloat(mapped.risk.toFixed(2)),
+            power: parseFloat(mapped.power.toFixed(2)),
+            drive: parseFloat(mapped.drive.toFixed(2)),
+            attach: parseFloat(mapped.attach.toFixed(2))
+        };
+    }
+
+    // 计算欧氏距离并排序，返回所有角色距离
+    function calculateDistances(userVec) {
+        // userVec: [risk, power, drive, attach]
+        let distances = [];
+        for (let char of CHARACTERS) {
+            let charVec = char.scores;
+            let sumSq = 0;
+            for (let i=0; i<4; i++) {
+                let diff = userVec[i] - charVec[i];
+                sumSq += diff * diff;
+            }
+            let dist = Math.sqrt(sumSq);
+            distances.push({ name: char.name, distance: dist });
+        }
+        distances.sort((a,b) => a.distance - b.distance);
+        return distances;
+    }
+
+    // 显示结果
+    function displayResults(userScores, distances) {
+        const best = distances[0];
+        const bestMatchDiv = document.getElementById('bestMatchText');
+        bestMatchDiv.innerHTML = `${best.name}`;
+
+        // 将 1-10 转换为百分比
+        const toPercent = (score) => Math.round(((score - 1) / 9) * 100);
+        
+        const scoresDiv = document.getElementById('scoresDisplay');
+        scoresDiv.innerHTML = `
+            <div class="score-row">
+                <div class="score-card">
+                    <div class="score-label">风险偏好</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${toPercent(userScores.risk)}%;"></div>
+                    </div>
+                    <div class="score-value">${100-toPercent(userScores.risk)}%谨慎 ${toPercent(userScores.risk)}%冒险</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">权力欲望</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${toPercent(userScores.power)}%;"></div>
+                    </div>
+                    <div class="score-value">${100-toPercent(userScores.power)}%服从 ${toPercent(userScores.power)}%支配</div>
+                </div>
+            </div>
+            <div class="score-row">
+                <div class="score-card">
+                    <div class="score-label">行为动力</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${toPercent(userScores.drive)}%;"></div>
+                    </div>
+                    <div class="score-value">${100-toPercent(userScores.drive)}%小头 ${toPercent(userScores.drive)}%大头</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">人际依附</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${toPercent(userScores.attach)}%;"></div>
+                    </div>
+                    <div class="score-value">${100-toPercent(userScores.attach)}%独立 ${toPercent(userScores.attach)}%协作</div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('resultArea').style.display = 'block';
+        document.getElementById('quizForm').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 检查所有题目是否作答
+    function checkAllAnswered() {
+        for (let i=0; i<answers.length; i++) {
+            if (answers[i] === null) return false;
+        }
+        return true;
+    }
+
+    // 提交逻辑
+    function onSubmit() {
+        if (!checkAllAnswered()) {
+            alert("你还有未回答的问题！请完成全部15个题目，才能窥见你的宇宙镜像。");
+            return;
+        }
+        const userScores = computeDimensionScores();
+        if (!userScores) {
+            alert("数据错误，请刷新重试。");
+            return;
+        }
+        const userVec = [userScores.risk, userScores.power, userScores.drive, userScores.attach];
+        const distances = calculateDistances(userVec);
+        displayResults(userScores, distances);
+    }
+
+    // 初始化渲染 - 显示开始界面
+    document.getElementById('quizForm').style.display = 'none';
+    document.getElementById('resultArea').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
+    
+    // 动态设置题目数量
+    document.getElementById('questionCount').textContent = QUESTIONS.length;
+    
+    // 开始按钮点击事件
+    document.getElementById('startBtn').addEventListener('click', () => {
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('quizForm').style.display = 'block';
+        renderCurrentQuestion();
+        updateNavButtons();
+    });
+    
+    // 绑定导航按钮事件
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        prevQuestion();
+        updateNavButtons();
+    });
+    
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (answers[currentPage] === null) {
+            alert("请先选择一个答案！");
+            return;
+        }
+        nextQuestion();
+        updateNavButtons();
+    });
+    
+    document.getElementById('submitBtn').addEventListener('click', onSubmit);
+
+    // 可选: 给每道题自动填充示例答案（方便测试，正式注释掉）
+    // 如有需要可取消注释快速测试
+    /*
+    setTimeout(() => {
+        for(let i=0;i<answers.length;i++) {
+            answers[i] = 3;
+        }
+        document.querySelectorAll('.opt[data-val="3"]').forEach(opt => opt.click());
+    }, 100);
+    */
+</script>
+</body>
+</html>
