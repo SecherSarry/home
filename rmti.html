@@ -97,6 +97,38 @@
             font-size: 0.85rem;
             color: #aad6d1;
         }
+        @media (max-width: 600px) {
+            /* 手机端四维卡片区域（缩小内边距与字体） */
+            .dimensions {
+                margin: 2rem 0;
+                padding: 0.8rem;
+                background: rgba(26, 64, 63, 0.6);
+                border-radius: 1rem;
+                border: 1px solid #2c5e5e;
+            }
+            .dim-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            .dim-item {
+                background: rgba(11, 39, 39, 0.8);
+                padding: 0.8rem;
+                border-radius: 0.6rem;
+                text-align: center;
+            }
+            .dim-en {
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #3acb96;
+                margin-bottom: 0.2rem;
+            }
+            .dim-zh {
+                font-size: 0.6rem;
+                color: #aad6d1;
+            }
+        }
+
         .container {
             width: 900px;
             margin: 0 auto;
@@ -307,7 +339,9 @@
             color: #7ba396;
         }
         @media (max-width: 600px) {
-            .container { padding: 1rem; width: calc(100% - 2rem) !important; }
+            .container { padding: 1rem; width: calc(100% - 0.5rem) !important; }
+            h1 { font-size: 1.8rem; }
+            .intro { font-size: 0.7rem; }
             .opt { font-size: 0.7rem; min-width: 55px; }
             .question-card { min-height: 160px; padding: 1rem; }
             .question-text { font-size: 0.95rem; }
